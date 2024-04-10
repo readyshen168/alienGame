@@ -40,8 +40,6 @@ class Ship:
         self.fire_bullet = False
         # 即刻发射的子弹
         self.bullets = pygame.sprite.Group()
-        # 上次发射的子弹
-        self.last_bullet = None
 
         # 上颗子弹相对飞船的预设位置
         self.expected_last_bullet_distance = 0
@@ -80,8 +78,9 @@ class Ship:
 
         # 第一颗子弹：
         if len(self.bullets) == 0:
-            self.last_bullet = Bullet(self)
-            self.bullets.add(self.last_bullet)
+            self.bullets.add(Bullet(self))
+            # 重置上颗子弹与飞船的预设距离
+            self.expected_last_bullet_distance = 0
 
         # 发射子弹的条件必须满足上颗子弹与飞船在y方向上的预设距离大于一个子弹的高度
         elif (len(self.bullets) < self.settings.bullets_capacity and
@@ -89,9 +88,9 @@ class Ship:
             # 让子弹相隔发射
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+            # 重置上颗子弹与飞船的预设距离
+            self.expected_last_bullet_distance = 0
 
-        # 重置上颗子弹与飞船的预设距离
-        self.expected_last_bullet_distance = 0
 
     # 复制飞船和子弹图像到屏幕surface对象上
     def blitme(self):
