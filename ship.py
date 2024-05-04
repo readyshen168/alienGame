@@ -62,12 +62,12 @@ class Ship:
         if self.fire_bullet:
             self._update_bullet()
 
+        # 更新子弹状态
+        self.bullets.update()
+
         # 把self.x赋值给self.rect.x
         self.rect.x = self.x
         self.rect.y = self.y
-
-        # 更新子弹状态
-        self.bullets.update()
 
     def _update_bullet(self):
         # 删除已出界的子弹

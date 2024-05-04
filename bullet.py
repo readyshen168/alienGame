@@ -10,7 +10,7 @@ class Bullet(Sprite):
         self.settings = ship.settings
         self.color = self.settings.bullet_color
 
-        # 创建子弹的矩形，再设置到ship的对应为止
+        # 创建子弹的矩形，再设置到ship的对应位置
         self.rect = pygame.Rect(0, 0, self.settings.bullet_width, self.settings.bullet_height)
         self.rect.midtop = ship.rect.midtop
 
