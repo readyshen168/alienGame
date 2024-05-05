@@ -65,25 +65,27 @@ class Ship:
         # 更新子弹状态
         self.bullets.update()
 
-        # 把self.x赋值给self.rect.x
-        self.rect.x = self.x
-        self.rect.y = self.y
-
-    def _update_bullet(self):
         # 删除已出界的子弹
         for bullet in self.bullets.copy():
             if bullet.rect.bottom < 0:
                 self.bullets.remove(bullet)
         print(len(self.bullets))
 
+        # 把self.x赋值给self.rect.x
+        self.rect.x = self.x
+        self.rect.y = self.y
+
+    def _update_bullet(self):
+
+        bullet_count = len(self.bullets)
         # 第一颗子弹：
-        if len(self.bullets) == 0:
+        if bullet_count == 0:
             self.bullets.add(Bullet(self))
             # 重置上颗子弹与飞船的预设距离
             self.expected_last_bullet_distance = 0
 
         # 发射子弹的条件必须满足上颗子弹与飞船在y方向上的预设距离大于一个子弹的高度
-        elif (len(self.bullets) < self.settings.bullets_capacity and
+        elif (bullet_count < self.settings.bullets_capacity and
               self.expected_last_bullet_distance > 5 * self.settings.bullet_height):
             # 让子弹相隔发射
             new_bullet = Bullet(self)
