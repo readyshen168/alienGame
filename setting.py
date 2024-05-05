@@ -18,6 +18,7 @@ class Settings:
         self.bullet_height = 15
         self.bullet_color = (60, 60, 60)
 
+    # 加载图像的方法
     def load_image(self, file):
         im = Image.open(file)
         im = im.convert('RGBA')

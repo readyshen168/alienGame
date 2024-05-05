@@ -28,9 +28,6 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
         # 创建飞船
         self.ship = Ship(self)
-        # 子弹编组
-        self.bullets = pygame.sprite.Group()
-
 
     def _check_events(self):
         # 监听键盘和鼠标事件,以及退出条件
