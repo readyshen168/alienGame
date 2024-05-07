@@ -2,7 +2,7 @@ import sys
 import pygame
 from ship import Ship
 from setting import Settings
-from bullet import Bullet
+from alien import Alien
 
 
 class AlienInvasion:
@@ -28,6 +28,9 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
         # 创建飞船
         self.ship = Ship(self)
+        # 创建外星战队
+        self.aliens = pygame.sprite.Group()
+        self._create_fleet()
 
     def _check_events(self):
         # 监听键盘和鼠标事件,以及退出条件
@@ -72,6 +75,11 @@ class AlienInvasion:
             # 中断连续发子弹
             self.ship.fire_bullet = False
 
+    # 创建外星舰队
+    def _create_fleet(self):
+        # 创建一艘外星飞船
+        self.aliens.add(Alien(self))
+
     # 每次循环重绘屏幕
     def _update_screen(self):
         # 背景色重绘
@@ -81,6 +89,11 @@ class AlienInvasion:
         self.ship.update()
         # 飞船绘制
         self.ship.blitme()
+        # 外星飞船绘制
+        # self.alien.draw_alien()
+
+        # 外星舰队绘制
+        self.aliens.draw(self.screen)
 
         # 让最近绘制的屏幕可见
         pygame.display.flip()
