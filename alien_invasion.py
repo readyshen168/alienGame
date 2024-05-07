@@ -85,14 +85,14 @@ class AlienInvasion:
         # 让最近绘制的屏幕可见
         pygame.display.flip()
 
-        # 控制帧率：让该循环每秒恰好运行60次
-        self.clock.tick(60)
-
     def run_game(self):
         """开始游戏主循环"""
         while True:
             self._check_events()
             self._update_screen()
+
+            # 控制帧率：让该循环每秒恰好运行60次
+            self.clock.tick(60)
 
 
 if __name__ == '__main__':
