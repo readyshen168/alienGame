@@ -19,11 +19,18 @@ class Settings:
         self.bullet_color = (60, 60, 60)
 
     # 加载图像的方法
-    def load_image(self, file):
+    def load_image(self, file, scale_factor=1):
         im = Image.open(file)
         im = im.convert('RGBA')
         io_string = io.BytesIO()
         im.save(io_string, format='PNG')
         io_string.seek(0)
-        return pygame.image.load(io_string)
 
+        image = pygame.image.load(io_string)
+        # 缩放原图像
+        scale_factor = scale_factor
+        new_width = int(image.get_width() * scale_factor)
+        new_height = int(image.get_height() * scale_factor)
+        image = pygame.transform.scale(image, (new_width, new_height))
+
+        return image
