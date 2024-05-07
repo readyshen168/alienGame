@@ -77,8 +77,22 @@ class AlienInvasion:
 
     # 创建外星舰队
     def _create_fleet(self):
-        # 创建一艘外星飞船
-        self.aliens.add(Alien(self))
+        # 先创建一艘外星飞船
+        alien = Alien(self)
+        # 飞船之间的间距
+        alien_width = alien.rect.width
+        # 飞船当前的x坐标
+        current_x = alien_width
+        # 开始循环，条件：当前x坐标离屏幕右侧至少要有n个飞船宽度
+        while current_x < (self.settings.screen_width - alien_width):
+            # 新建一艘飞船，设定其X坐标
+            new_alien = Alien(self)
+            new_alien.x = current_x
+            new_alien.rect.x = current_x
+            # 将飞船加入舰队
+            self.aliens.add(new_alien)
+            # 当前x坐标加上两倍的间距
+            current_x += 2 * alien_width
 
     # 每次循环重绘屏幕
     def _update_screen(self):
