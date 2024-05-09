@@ -81,18 +81,31 @@ class AlienInvasion:
         alien = Alien(self)
         # 飞船之间的间距
         alien_width = alien.rect.width
-        # 飞船当前的x坐标
-        current_x = alien_width
-        # 开始循环，条件：当前x坐标离屏幕右侧至少要有n个飞船宽度
-        while current_x < (self.settings.screen_width - alien_width):
-            # 新建一艘飞船，设定其X坐标
-            new_alien = Alien(self)
-            new_alien.x = current_x
-            new_alien.rect.x = current_x
-            # 将飞船加入舰队
-            self.aliens.add(new_alien)
-            # 当前x坐标加上两倍的间距
-            current_x += 2 * alien_width
+        alien_height = alien.rect.height
+        # 飞船当前的坐标
+        current_x, current_y = alien_width, alien_height
+        # 开始循环，条件：当前坐标离屏幕边沿保持一定距离
+        while current_y < (self.settings.screen_height - 20 * alien_height):
+            while current_x < (self.settings.screen_width - alien_width):
+                # 根据x坐标生成新的外星飞船
+                self._create_alien(current_x, current_y)
+                # 当前x坐标加上两倍的间距
+                current_x += 2 * alien_width
+            # 新的一行需要重置x坐标
+            current_x = alien_width
+            # 当前y坐标加上2倍的间距
+            current_y += 2 * alien_height
+
+    # 根据坐标生成外星飞船并加入舰队
+    def _create_alien(self, x, y):
+        # 新建一艘飞船，设定其X坐标
+        new_alien = Alien(self)
+        new_alien.x = x
+        new_alien.y = y
+        new_alien.rect.x = x
+        new_alien.rect.y = y
+        # 将飞船加入舰队
+        self.aliens.add(new_alien)
 
     # 每次循环重绘屏幕
     def _update_screen(self):
