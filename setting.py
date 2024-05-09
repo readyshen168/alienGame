@@ -18,6 +18,9 @@ class Settings:
         self.bullet_height = 15
         self.bullet_color = (60, 60, 60)
 
+        # 外星飞船数据：
+        self.alien_speed = 5.0
+
     # 加载图像的方法
     def load_image(self, file, scale_factor=1):
         im = Image.open(file)

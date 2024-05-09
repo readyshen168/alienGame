@@ -10,6 +10,7 @@ class Alien(Sprite):
         self.screen = ai_game.screen
         self.settings = Settings()
         self.imageFile = 'images/UFO.png'
+        self.speed = self.settings.alien_speed
 
         # 加载外星人图像并设置其rect属性
         self.image = self.settings.load_image(self.imageFile,0.02)
@@ -26,3 +27,7 @@ class Alien(Sprite):
     # 绘制外星飞船
     def draw_alien(self):
         self.screen.blit(self.image, self.rect)
+
+    def update(self):
+        self.x += self.speed
+        self.rect.x = self.x
