@@ -119,6 +119,8 @@ class AlienInvasion:
         # 外星飞船绘制
         # self.alien.draw_alien()
 
+        # 更新外星舰队状态
+        self.aliens.update()
         # 外星舰队绘制
         self.aliens.draw(self.screen)
 
