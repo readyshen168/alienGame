@@ -13,7 +13,7 @@ class Alien(Sprite):
         self.speed = self.settings.alien_speed
 
         # 加载外星人图像并设置其rect属性
-        self.image = self.settings.load_image(self.imageFile,0.02)
+        self.image = self.settings.load_image(self.imageFile, 0.02)
         self.rect = self.image.get_rect()
 
         # 每个外星人最初位置在屏幕左上角附近
@@ -24,10 +24,15 @@ class Alien(Sprite):
         self.x = float(self.rect.x)
         self.y = float(self.rect.y)
 
+    # 检测外星飞船是否到达屏幕边缘
+    def check_edges(self):
+        screen_rect = self.screen.get_rect()
+        return (self.rect.right >= screen_rect) or (self.rect.left <= 0)
+
     # 绘制外星飞船
     def draw_alien(self):
         self.screen.blit(self.image, self.rect)
 
     def update(self):
-        self.x += self.speed
+        self.x += self.speed * self.settings.fleet_direction
         self.rect.x = self.x
