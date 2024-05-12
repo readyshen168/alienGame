@@ -34,5 +34,12 @@ class Alien(Sprite):
         self.screen.blit(self.image, self.rect)
 
     def update(self):
+        # 水平移动外星飞船
         self.x += self.speed * self.settings.fleet_direction
         self.rect.x = self.x
+        # 当外星舰队到达屏幕边缘后向下移动
+        # 判断是否到达边缘
+        if self.check_edges():
+            # 向下移动并改变水平移动方向
+            self.y += self.settings.fleet_drop_speed
+
