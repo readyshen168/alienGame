@@ -107,8 +107,6 @@ class AlienInvasion:
         # 将飞船加入舰队
         self.aliens.add(new_alien)
 
-
-
     # 每次循环重绘屏幕
     def _update_screen(self):
         # 背景色重绘
