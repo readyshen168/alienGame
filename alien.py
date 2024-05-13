@@ -32,15 +32,7 @@ class Alien(Sprite):
     def draw_alien(self):
         self.screen.blit(self.image, self.rect)
 
-    # 外星舰队的飞行规则：水平持续飞行，碰到屏幕边缘则向下移动并改变水平飞行方向
     def update(self):
         # 水平移动外星飞船
         self.x += self.speed * self.settings.fleet_direction
         self.rect.x = self.x
-        # 当外星舰队中某只飞船到达屏幕边缘，则整体舰队向下移动
-        if self.check_edges():
-            # 向下移动并改变水平移动方向
-            self.y += self.settings.fleet_drop_speed
-            self.rect.y = self.y
-            self.settings.fleet_direction = -self.settings.fleet_direction
-

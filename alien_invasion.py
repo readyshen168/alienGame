@@ -107,6 +107,22 @@ class AlienInvasion:
         # 将飞船加入舰队
         self.aliens.add(new_alien)
 
+    # 在有外星飞船到达屏幕边缘时采取相应的措施：
+    # 外星舰队的飞行规则：水平持续飞行，碰到屏幕边缘则向下移动并改变水平飞行方向
+    def _check_fleet_edges(self):
+        for alien in self.aliens.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                break
+
+    # 将外星舰队向下移动，并改变水平移动方向
+    def _change_fleet_direction(self):
+        # 当外星舰队中某只飞船到达屏幕边缘，则整体舰队向下移动
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.fleet_drop_speed
+            # alien.rect.y = alien.y
+        self.settings.fleet_direction *= -1
+
     # 每次循环重绘屏幕
     def _update_screen(self):
         # 背景色重绘
@@ -120,6 +136,7 @@ class AlienInvasion:
         # self.alien.draw_alien()
 
         # 更新外星舰队状态
+        self._check_fleet_edges()
         self.aliens.update()
         # 外星舰队绘制
         self.aliens.draw(self.screen)
