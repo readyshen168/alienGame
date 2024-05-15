@@ -40,9 +40,10 @@ class Ship:
         self.fire_bullet = False
         # 即刻发射的子弹
         self.bullets = pygame.sprite.Group()
-
         # 上颗子弹相对飞船的预设位置
         self.expected_last_bullet_distance = 0
+        # 外星飞船舰队：
+        self.aliens = ai_game.aliens
 
     # 根据按键状态来更新飞船的运动状态
     def update(self):
@@ -63,13 +64,16 @@ class Ship:
             self._update_bullet()
 
         # 更新子弹状态
-        self.bullets.update()
-
-        # 删除已出界的子弹
         for bullet in self.bullets.copy():
+            bullet.update()
+            # 删除已出界的子弹
             if bullet.rect.bottom < 0:
                 self.bullets.remove(bullet)
+        # 在终端打出屏幕上剩余的子弹数量
         print(len(self.bullets))
+
+        # 删除被子弹击中的外星飞船
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
 
         # 把self.x赋值给self.rect.x
         self.rect.x = self.x

@@ -26,11 +26,11 @@ class AlienInvasion:
         self.bg_color = self.settings.bg_color
         # 设置游戏窗口标题
         pygame.display.set_caption("Alien Invasion")
-        # 创建飞船
-        self.ship = Ship(self)
         # 创建外星战队
         self.aliens = pygame.sprite.Group()
         self._create_fleet()
+        # 创建飞船
+        self.ship = Ship(self)
 
     def _check_events(self):
         # 监听键盘和鼠标事件,以及退出条件
