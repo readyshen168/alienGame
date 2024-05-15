@@ -28,9 +28,14 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
         # 创建飞船
         self.ship = Ship(self)
+        '''
         # 创建外星战队
         self.aliens = pygame.sprite.Group()
         self._create_fleet()
+        '''
+
+        # 创建测试用的外星飞船
+        self.test_alien = Alien(self)
 
     def _check_events(self):
         # 监听键盘和鼠标事件,以及退出条件
@@ -123,6 +128,16 @@ class AlienInvasion:
             # alien.rect.y = alien.y
         self.settings.fleet_direction *= -1
 
+    # 测试飞船的飞行规则：水平持续飞行，碰到屏幕边缘则向下移动并改变水平飞行方向
+    def _check_alien_edge(self):
+        if self.test_alien.check_edges():
+            self._change_alien_direction()
+
+    # 改变测试飞船的水平飞行方向并向下移动
+    def _change_alien_direction(self):
+        self.test_alien.rect.y += self.settings.fleet_drop_speed
+        self.settings.fleet_direction *= -1
+
     # 每次循环重绘屏幕
     def _update_screen(self):
         # 背景色重绘
@@ -132,14 +147,20 @@ class AlienInvasion:
         self.ship.update()
         # 飞船绘制
         self.ship.blitme()
-        # 外星飞船绘制
-        # self.alien.draw_alien()
 
+        '''
         # 更新外星舰队状态
         self._check_fleet_edges()
         self.aliens.update()
         # 外星舰队绘制
         self.aliens.draw(self.screen)
+        '''
+
+        # 检测外星测试飞船状态
+        self._check_alien_edge()
+        self.test_alien.update()
+        # 绘制外星测试飞船
+        self.test_alien.draw_alien()
 
         # 让最近绘制的屏幕可见
         pygame.display.flip()
