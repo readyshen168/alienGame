@@ -85,8 +85,8 @@ class AlienInvasion:
         # 飞船当前的坐标
         current_x, current_y = alien_width, alien_height
         # 开始循环，条件：当前坐标离屏幕边沿保持一定距离
-        while current_y < (self.settings.screen_height - 20 * alien_height):
-            while current_x < (self.settings.screen_width - alien_width):
+        while current_y < (self.settings.screen_height - 30 * alien_height):
+            while current_x < (self.settings.screen_width - 10 * alien_width):
                 # 根据x坐标生成新的外星飞船
                 self._create_alien(current_x, current_y)
                 # 当前x坐标加上两倍的间距

@@ -6,7 +6,7 @@ from empty_bullet import EmptyBullet
 
 class Ship:
     def __init__(self, ai_game):
-        self.settings = Settings()
+        self.settings = ai_game.settings
         self.imageFile = 'images/spaceShip.png'
 
         self.screen = ai_game.screen
