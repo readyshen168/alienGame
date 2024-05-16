@@ -96,6 +96,13 @@ class AlienInvasion:
             # 当前y坐标加上2倍的间距
             current_y += 2 * alien_height
 
+    # 若外星舰队被消灭，则生成新的舰队
+    def _recreate_fleet(self):
+        if not self.aliens:
+            self._create_fleet()
+            # 清空飞船的子弹
+            self.ship.bullets.empty()
+
     # 根据坐标生成外星飞船并加入舰队
     def _create_alien(self, x, y):
         # 新建一艘飞船，设定其X坐标
@@ -140,6 +147,8 @@ class AlienInvasion:
         self.aliens.update()
         # 外星舰队绘制
         self.aliens.draw(self.screen)
+        # 若外星舰队被消灭，则生成新的舰队
+        self._recreate_fleet()
 
         # 让最近绘制的屏幕可见
         pygame.display.flip()
