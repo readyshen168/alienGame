@@ -57,13 +57,22 @@ class Ship:
         if self.moveDown and self.rect.bottom < self.screen_rect.bottom:
             self.y += self.speed
 
+        # 更新子弹状态
+        self._update_bullets()
+
+        # 把self.x赋值给self.rect.x
+        self.rect.x = self.x
+        self.rect.y = self.y
+
+    # 更新子弹集合的状态
+    def _update_bullets(self):
         # 上颗子弹的预设距离（飞船状态每更新一次，即增加一次预设距离）
         self.expected_last_bullet_distance += self.settings.bullet_speed
         # 按下空格键后决定如何发射子弹（连续发射子弹模式）
         if self.fire_bullet:
-            self._update_bullet()
+            self._fire_bullet()
 
-        # 更新子弹状态
+        # 更新子弹状态（位置、删除出界的）
         for bullet in self.bullets.copy():
             bullet.update()
             # 删除已出界的子弹
@@ -75,11 +84,7 @@ class Ship:
         # 删除被子弹击中的外星飞船
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
 
-        # 把self.x赋值给self.rect.x
-        self.rect.x = self.x
-        self.rect.y = self.y
-
-    def _update_bullet(self):
+    def _fire_bullet(self):
 
         bullet_count = len(self.bullets)
         # 第一颗子弹：
@@ -96,7 +101,6 @@ class Ship:
             self.bullets.add(new_bullet)
             # 重置上颗子弹与飞船的预设距离
             self.expected_last_bullet_distance = 0
-
 
     # 复制飞船和子弹图像到屏幕surface对象上
     def blitme(self):
