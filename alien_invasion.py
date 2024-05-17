@@ -130,15 +130,8 @@ class AlienInvasion:
             # alien.rect.y = alien.y
         self.settings.fleet_direction *= -1
 
-    # 每次循环重绘屏幕
-    def _update_screen(self):
-        # 背景色重绘
-        self.screen.fill(self.bg_color)
-
-        # 飞船状态更新
-        self.ship.update()
-        # 飞船绘制
-        self.ship.blitme()
+    # 更新外星舰队状态
+    def _update_aliens(self):
         # 外星飞船绘制
         # self.alien.draw_alien()
 
@@ -150,6 +143,20 @@ class AlienInvasion:
         # 若外星舰队被消灭，则生成新的舰队
         self._recreate_fleet()
 
+    def _update_ship(self):
+        # 飞船状态更新
+        self.ship.update()
+        # 飞船绘制
+        self.ship.blitme()
+
+    # 每次循环重绘屏幕
+    def _update_screen(self):
+        # 背景色重绘
+        self.screen.fill(self.bg_color)
+        # 更新飞船状态
+        self._update_ship()
+        # 更新外星舰队状态
+        self._update_aliens()
         # 让最近绘制的屏幕可见
         pygame.display.flip()
 
