@@ -3,6 +3,7 @@ import pygame
 from ship import Ship
 from setting import Settings
 from alien import Alien
+from game_stats import GameStats
 
 
 class AlienInvasion:
@@ -31,6 +32,8 @@ class AlienInvasion:
         self._create_fleet()
         # 创建飞船
         self.ship = Ship(self)
+
+        # 创建一个用于存储游戏统计信息的实例
 
     def _check_events(self):
         # 监听键盘和鼠标事件,以及退出条件
@@ -146,6 +149,8 @@ class AlienInvasion:
         # 检测外星人和飞船之间的碰撞
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             print("Ship hit!!!")
+            # 调用处理飞船与外星人相撞的方法
+            # 调用外星人到达屏幕下方边缘的方法
 
     def _update_ship(self):
         # 飞船状态更新
@@ -163,6 +168,21 @@ class AlienInvasion:
         self._update_aliens()
         # 让最近绘制的屏幕可见
         pygame.display.flip()
+
+
+    # 处理飞船与外星人相撞的方法:
+    def _ship_hit(self):
+
+        # 将game_stats中的ships_left减1
+
+        # 清空外星人和子弹列表
+
+        # 创建新的外星人舰队，并将飞船重置于屏幕底部中央ship.center_ship()
+
+
+    # 检测是否有外星人到达屏幕下边缘
+    def _check_aliens_bottom(self):
+        # 像飞船被撞到一样处理_ship_hit
 
     def run_game(self):
         """开始游戏主循环"""

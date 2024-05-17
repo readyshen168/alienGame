@@ -47,6 +47,10 @@ class Ship():
         # 外星飞船舰队：
         self.aliens = ai_game.aliens
 
+    # 将飞船重置在屏幕底部中央
+    def center_ship(self):
+
+
     # 根据按键状态来更新飞船的运动状态
     def update(self):
         # 根据移动状态来判定飞船的最新位置
