@@ -143,6 +143,10 @@ class AlienInvasion:
         # 若外星舰队被消灭，则生成新的舰队
         self._recreate_fleet()
 
+        # 检测外星人和飞船之间的碰撞
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            print("Ship hit!!!")
+
     def _update_ship(self):
         # 飞船状态更新
         self.ship.update()

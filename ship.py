@@ -1,11 +1,13 @@
 import pygame
+# from pygame.sprite import Sprite
 from setting import Settings
 from bullet import Bullet
 from empty_bullet import EmptyBullet
 
 
-class Ship:
+class Ship():
     def __init__(self, ai_game):
+        # super().__init__()
         self.settings = ai_game.settings
         self.imageFile = 'images/spaceShip.png'
 
@@ -18,7 +20,7 @@ class Ship:
         # 使用pillow库来转换图像给pygame
         self.image = self.settings.load_image(self.imageFile)
 
-        # 获取飞船图像的矩形框
+        # 获取飞船图像的矩形框 需具备rect属性才能被pygame.sprite.spritecollideany使用
         self.rect = self.image.get_rect()
 
         # 使用surface对象的矩形框来定位飞船图像的位置
