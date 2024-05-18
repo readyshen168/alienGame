@@ -24,7 +24,7 @@ class Ship():
         self.rect = self.image.get_rect()
 
         # 使用surface对象的矩形框来定位飞船图像的位置
-        self.rect.midbottom = self.screen_rect.midbottom
+        self.center_ship()
 
         # 按键状态的标志
         self.moveRight = False
@@ -49,7 +49,10 @@ class Ship():
 
     # 将飞船重置在屏幕底部中央
     def center_ship(self):
-
+        self.rect.midbottom = self.screen_rect.midbottom
+        # 重置跟踪飞船精确位置的属性
+        self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
 
     # 根据按键状态来更新飞船的运动状态
     def update(self):

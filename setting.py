@@ -10,7 +10,10 @@ class Settings:
         self.screen_width = 1200
         self.screen_height = 800
         self.bg_color = (230, 118, 230)
+
+        # 飞船设置
         self.shipSpeed = 5
+        self.ship_limit = 5
 
         # 子弹数据：
         self.bullet_speed = 10.0
@@ -23,6 +26,7 @@ class Settings:
         self.fleet_drop_speed = 10
         # fleet_direction为1表示向右移动，为-1表示向左移动
         self.fleet_direction = 1
+
 
     # 加载图像的方法
     def load_image(self, file, scale_factor=1):
