@@ -13,7 +13,7 @@ class Settings:
 
         # 飞船设置
         self.shipSpeed = 5
-        self.ship_limit = 5
+        self.ship_limit = 3
 
         # 子弹数据：
         self.bullet_speed = 10.0

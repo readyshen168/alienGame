@@ -39,6 +39,9 @@ class AlienInvasion:
         # 创建飞船
         self.ship = Ship(self)
 
+        # 游戏是否结束的标记
+        self.game_active = True
+
     def _check_events(self):
         # 监听键盘和鼠标事件,以及退出条件
         for event in pygame.event.get():
@@ -168,24 +171,33 @@ class AlienInvasion:
     def _update_screen(self):
         # 背景色重绘
         self.screen.fill(self.bg_color)
-        # 更新飞船状态
-        self._update_ship()
-        # 更新外星舰队状态
-        self._update_aliens()
+
+        # 游戏继续进行的条件
+        if self.game_active:
+            # 更新飞船状态
+            self._update_ship()
+            # 更新外星舰队状态
+            self._update_aliens()
+
         # 让最近绘制的屏幕可见
         pygame.display.flip()
 
     # 处理飞船与外星人相撞的方法:
     def _ship_hit(self):
+        if self.game_stats.ships_left > 0:
+            # 将game_stats中的ships_left减1
+            self.game_stats.ships_left -= 1
+            # 清空外星人
+            self.aliens.empty()
 
-        # 将game_stats中的ships_left减1
-        self.game_stats.ships_left -= 1
-        # 清空外星人
-        self.aliens.empty()
+            # 创建新的外星人舰队（会清空子弹）），并将飞船重置于屏幕底部中央ship.center_ship()
+            self._recreate_fleet()
+            self.ship.center_ship()
 
-        # 创建新的外星人舰队（会清空子弹）），并将飞船重置于屏幕底部中央ship.center_ship()
-        self._recreate_fleet()
-        self.ship.center_ship()
+            # 暂停
+            # pygame.time.delay(500)
+        else:
+            self.game_active = False
 
     # 检测是否有外星人到达屏幕下边缘
     def _check_aliens_bottom(self):
