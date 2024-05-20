@@ -65,6 +65,7 @@ class AlienInvasion:
 
     def _check_play_button(self, mouse_pos):
         """鼠标单击位置在按钮范围内时，开始游戏，即game_active = true"""
+        # 在分支bug中去掉了game_active的条件判定
         if self.play_button.rect.collidepoint(mouse_pos) and not self.game_active:
             self.game_active = True
             # 重置游戏的统计信息
