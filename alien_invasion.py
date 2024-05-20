@@ -59,14 +59,22 @@ class AlienInvasion:
                 self._check_keyup_events(event)
 
             # 检测鼠标单击的位置并执行_check_play_button(mouse_pos)方法
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
 
-
-    def _check_play_button(self,mouse_pos):
+    def _check_play_button(self, mouse_pos):
         """鼠标单击位置在按钮范围内时，开始游戏，即game_active = true"""
+        if self.play_button.rect.collidepoint(mouse_pos) and not self.game_active:
+            self.game_active = True
             # 重置游戏的统计信息
+            self.game_stats.reset_stat()
             # 清空外星人和子弹列表
+            self.aliens.empty()
+            self.ship.bullets.empty()
             # 创建新的外星舰队，并把飞船放在屏幕底部中央
-
+            self._recreate_fleet()
+            self.ship.center_ship()
 
     def _check_keydown_events(self, event):
         if event.key == pygame.K_RIGHT:
@@ -194,8 +202,8 @@ class AlienInvasion:
             self._update_aliens()
 
         # 如果game_active是False,则绘制Play按钮
-
-
+        else:
+            self.play_button.draw_button()
         # 让最近绘制的屏幕可见
         pygame.display.flip()
 
