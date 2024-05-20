@@ -4,6 +4,7 @@ from ship import Ship
 from setting import Settings
 from alien import Alien
 from game_stats import GameStats
+from button import Button
 
 
 class AlienInvasion:
@@ -39,8 +40,11 @@ class AlienInvasion:
         # 创建飞船
         self.ship = Ship(self)
 
-        # 游戏是否结束的标记
-        self.game_active = True
+        # 游戏是否结束的标记，默认是False，点击play按钮后开始
+        self.game_active = False
+
+        # 创建play按钮
+        self.play_button = Button(self, "Play")
 
     def _check_events(self):
         # 监听键盘和鼠标事件,以及退出条件
@@ -53,6 +57,16 @@ class AlienInvasion:
 
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+
+            # 检测鼠标单击的位置并执行_check_play_button(mouse_pos)方法
+
+
+    def _check_play_button(self,mouse_pos):
+        """鼠标单击位置在按钮范围内时，开始游戏，即game_active = true"""
+            # 重置游戏的统计信息
+            # 清空外星人和子弹列表
+            # 创建新的外星舰队，并把飞船放在屏幕底部中央
+
 
     def _check_keydown_events(self, event):
         if event.key == pygame.K_RIGHT:
@@ -178,6 +192,9 @@ class AlienInvasion:
             self._update_ship()
             # 更新外星舰队状态
             self._update_aliens()
+
+        # 如果game_active是False,则绘制Play按钮
+
 
         # 让最近绘制的屏幕可见
         pygame.display.flip()
