@@ -6,6 +6,7 @@ from alien import Alien
 from game_stats import GameStats
 from button import Button
 
+'''增加一个test用来调试新功能'''
 
 class AlienInvasion:
     """管理游戏资源和行为的类"""
