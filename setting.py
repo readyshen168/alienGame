@@ -27,6 +27,19 @@ class Settings:
         # fleet_direction为1表示向右移动，为-1表示向左移动
         self.fleet_direction = 1
 
+        #以什么倍率加快游戏的节奏speedup_scale
+
+        # 重置动态数据 initialize_dynamic_settings()
+
+
+    """重置动态数据的方法"""
+    def initialize_dynamic_settings(self):
+        #把各项速度值、外星人移动方向在这里重置
+
+
+    """提高各项速度的方法"""
+    def increase_speed(self):
+
 
     # 加载图像的方法
     def load_image(self, file, scale_factor=1):
