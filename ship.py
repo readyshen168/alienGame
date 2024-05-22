@@ -5,7 +5,8 @@ from bullet import Bullet
 from empty_bullet import EmptyBullet
 
 
-class Ship():
+class Ship:
+
     def __init__(self, ai_game):
         # super().__init__()
         self.settings = ai_game.settings
@@ -40,7 +41,7 @@ class Ship():
 
         # 子弹：
         self.fire_bullet = False
-        # 即刻发射的子弹
+        # 子弹集合
         self.bullets = pygame.sprite.Group()
         # 上颗子弹相对飞船的预设位置
         self.expected_last_bullet_distance = 0
