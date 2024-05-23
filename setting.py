@@ -27,7 +27,6 @@ class Settings:
         # fleet_direction为1表示向右移动，为-1表示向左移动
         self.fleet_direction = 1
 
-
     # 加载图像的方法
     def load_image(self, file, scale_factor=1):
         im = Image.open(file)
@@ -38,7 +37,6 @@ class Settings:
 
         image = pygame.image.load(io_string)
         # 缩放原图像
-        scale_factor = scale_factor
         new_width = int(image.get_width() * scale_factor)
         new_height = int(image.get_height() * scale_factor)
         image = pygame.transform.scale(image, (new_width, new_height))
