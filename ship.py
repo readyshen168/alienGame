@@ -33,7 +33,7 @@ class Ship():
         self.moveDown = False
 
         # 飞船速度：
-        self.speed = self.settings.shipSpeed
+        self.speed = self.settings.ship_speed
 
         self.x = float(self.rect.x)
         self.y = float(self.rect.y)

@@ -77,8 +77,10 @@ class AlienInvasion:
             self._recreate_fleet()
             self.ship.center_ship()
 
-            #隐藏光标
-            #还原游戏设置 initialize_dynamic_settings()
+            # 隐藏光标
+            pygame.mouse.set_visible(False)
+            # 还原游戏设置 initialize_dynamic_settings()
+            self.settings.initialize_dynamic_settings()
 
     def _check_keydown_events(self, event):
         if event.key == pygame.K_RIGHT:
@@ -227,7 +229,8 @@ class AlienInvasion:
             # pygame.time.delay(500)
         else:
             self.game_active = False
-            #显示光标
+            # 显示光标
+            pygame.mouse.set_visible(True)
 
     # 检测是否有外星人到达屏幕下边缘
     def _check_aliens_bottom(self):
