@@ -66,26 +66,6 @@ class AlienInvasion:
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_button(mouse_pos)
 
-    def _check_play_button(self, mouse_pos):
-        """鼠标单击位置在按钮范围内时，开始游戏，即game_active = true"""
-        # 在分支bug中去掉了game_active的条件判定
-        # 去掉了game_active的判定，会导致按钮范围的点击持续有效
-        if self.play_button.rect.collidepoint(mouse_pos) and not self.game_active:
-            self.game_active = True
-            # 重置游戏的统计信息
-            self.game_stats.reset_stat()
-            # 清空外星人和子弹列表
-            self.aliens.empty()
-            self.ship.bullets.empty()
-            # 创建新的外星舰队，并把飞船放在屏幕底部中央
-            self._recreate_fleet()
-            self.ship.center_ship()
-
-            # 隐藏光标
-            pygame.mouse.set_visible(False)
-            # 还原游戏设置 initialize_dynamic_settings()
-            self.settings.initialize_dynamic_settings()
-
     def _check_keydown_events(self, event):
         if event.key == pygame.K_RIGHT:
             self.ship.moveRight = True
@@ -117,6 +97,24 @@ class AlienInvasion:
             # 中断连续发子弹
             self.ship.fire_bullet = False
 
+    def _check_play_button(self, mouse_pos):
+        """鼠标单击位置在按钮范围内时，开始游戏，即game_active = true"""
+        # 在分支bug中去掉了game_active的条件判定
+        # 去掉了game_active的判定，会导致按钮范围的点击持续有效
+        if self.play_button.rect.collidepoint(mouse_pos) and not self.game_active:
+            self.game_active = True
+            # 重置游戏的统计信息
+            self.game_stats.reset_stat()
+            self._recreate_fleet_ship()
+            '''
+            # 清空外星人和子弹列表
+            self.aliens.empty()
+            self.ship.bullets.empty()
+            # 创建新的外星舰队，并把飞船放在屏幕底部中央
+            self._recreate_fleet()
+            self.ship.center_ship() 
+            '''
+
     # 创建外星舰队
     def _create_fleet(self):
         # 先创建一艘外星飞船
@@ -138,12 +136,25 @@ class AlienInvasion:
             # 当前y坐标加上2倍的间距
             current_y += 2 * alien_height
 
-    # 若外星舰队被消灭，则生成新的舰队
-    def _recreate_fleet(self):
-        if not self.aliens:
-            self._create_fleet()
-            # 清空飞船的子弹
-            self.ship.bullets.empty()
+    # 若外星舰队被消灭，则生成新的舰队并提升游戏难度
+    def _upgrade_fleet_speed(self):
+        # 提升速度
+        self.settings.increase_speed()
+        # 新建外星舰队
+        self._create_fleet()
+        # 清空飞船的子弹
+        self.ship.bullets.empty()
+
+    # 重置外星舰队、我方飞船的方法：
+    def _recreate_fleet_ship(self):
+        self.aliens.empty()
+        self.ship.bullets.empty()
+        self._create_fleet()
+        self.ship.center_ship()
+        # 隐藏光标
+        pygame.mouse.set_visible(False)
+        # 还原游戏设置 initialize_dynamic_settings()
+        self.settings.initialize_dynamic_settings()
 
     # 根据坐标生成外星飞船并加入舰队
     def _create_alien(self, x, y):
@@ -182,15 +193,19 @@ class AlienInvasion:
         self.aliens.update()
         # 外星舰队绘制
         self.aliens.draw(self.screen)
-        # 若外星舰队被消灭，则生成新的舰队
-        self._recreate_fleet()
+        # 若外星舰队被消灭，则生成新的外星舰队,且提升游戏难度(增加各项速度)
+        if not self.aliens:
+            self._upgrade_fleet_speed()
+        # self._recreate_fleet()
 
         # 检测外星人和飞船之间的碰撞
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             print("Ship hit!!!")
             # 调用处理飞船与外星人相撞的方法
             self._ship_hit()
-            # 调用外星人到达屏幕下方边缘的方法
+
+        # 调用外星人到达屏幕下方边缘的方法
+        else:
             self._check_aliens_bottom()
 
     def _update_ship(self):
@@ -223,11 +238,12 @@ class AlienInvasion:
             # 将game_stats中的ships_left减1
             self.game_stats.ships_left -= 1
             # 清空外星人
-            self.aliens.empty()
+            # self.aliens.empty()
 
             # 创建新的外星人舰队（会清空子弹）），并将飞船重置于屏幕底部中央ship.center_ship()
-            self._recreate_fleet()
-            self.ship.center_ship()
+            self._recreate_fleet_ship()
+            # self._recreate_fleet()
+            # self.ship.center_ship()
 
             # 暂停
             # pygame.time.delay(500)
@@ -239,8 +255,10 @@ class AlienInvasion:
     # 检测是否有外星人到达屏幕下边缘
     def _check_aliens_bottom(self):
         # 像飞船被撞到一样处理_ship_hit
-        if self.ship.rect.bottom >= self.screen.get_rect().bottom:
-            self._ship_hit()
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= self.screen.get_rect().bottom:
+                self._ship_hit()
+                break
 
     def run_game(self):
         """开始游戏主循环"""
