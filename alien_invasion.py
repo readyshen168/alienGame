@@ -8,6 +8,7 @@ from button import Button
 
 '''增加一个test用来调试新功能'''
 '''游戏难度并没有按预期增加'''
+"""加入计分模块"""
 
 
 class AlienInvasion:
