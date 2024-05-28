@@ -5,6 +5,7 @@ from setting import Settings
 from alien import Alien
 from game_stats import GameStats
 from button import Button
+from score_board import ScoreBoard
 
 '''增加一个test用来调试新功能'''
 '''游戏难度并没有按预期增加'''
@@ -49,6 +50,9 @@ class AlienInvasion:
 
         # 创建play按钮
         self.play_button = Button(self, "Play")
+
+        # 创建记分板
+        self.score_board = ScoreBoard(self)
 
     def _check_events(self):
         # 监听键盘和鼠标事件,以及退出条件
@@ -219,6 +223,9 @@ class AlienInvasion:
     def _update_screen(self):
         # 背景色重绘
         self.screen.fill(self.bg_color)
+
+        # 显示记分板
+        self.score_board.score_show()
 
         # 游戏继续进行的条件
         if self.game_active:
