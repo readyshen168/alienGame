@@ -40,8 +40,15 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
 
         # 创建外星战队
-        self.aliens = pygame.sprite.Group()
-        self._create_fleet()
+        # self.aliens = pygame.sprite.Group()
+        # self._create_fleet()
+
+        '''创建外星舰队队长，负责管理外星舰队的各类行为'''
+        self.alien_captain = Alien(self)
+        # 创建外星战队
+        self.alien_captain.create_fleet()
+        # 外星战队精灵组
+        self.aliens = self.alien_captain.aliens
 
         # 创建飞船
         self.ship = Ship(self)
@@ -123,11 +130,10 @@ class AlienInvasion:
 
     # 创建外星舰队
     def _create_fleet(self):
-        # 先创建一艘外星飞船
-        alien = Alien(self)
-        # 飞船之间的间距
-        alien_width = alien.rect.width
-        alien_height = alien.rect.height
+
+        # 飞船之间的间距取飞船的长宽值
+        alien_width = self.alien_captain.rect.width
+        alien_height = self.alien_captain.rect.height
         # 飞船当前的坐标
         current_x, current_y = alien_width, alien_height
         # 开始循环，条件：当前坐标离屏幕边沿保持一定距离
@@ -147,7 +153,8 @@ class AlienInvasion:
         # 提升速度
         self.settings.increase_speed()
         # 新建外星舰队
-        self._create_fleet()
+        # self._create_fleet()
+        self.alien_captain.create_fleet()
         # 清空飞船的子弹
         self.ship.bullets.empty()
 
@@ -155,7 +162,8 @@ class AlienInvasion:
     def _recreate_fleet_ship(self):
         self.aliens.empty()
         self.ship.bullets.empty()
-        self._create_fleet()
+        # self._create_fleet()
+        self.alien_captain.create_fleet()
         self.ship.center_ship()
         # 隐藏光标
         pygame.mouse.set_visible(False)
