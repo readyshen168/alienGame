@@ -10,6 +10,7 @@ from score_board import ScoreBoard
 '''增加一个test用来调试新功能'''
 '''游戏难度并没有按预期增加'''
 """加入计分模块"""
+"""把外星人相关的代码都归入外星人类中处理，在分支test_alien上"""
 
 
 class AlienInvasion:
