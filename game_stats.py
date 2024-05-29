@@ -5,6 +5,8 @@ from setting import Settings
 class GameStats:
     def __init__(self):
         # 初始化统计信息settings、reset_stat()
+        self.score = None
+        self.ships_left = None
         self.settings = Settings()
         self.reset_stat()
 

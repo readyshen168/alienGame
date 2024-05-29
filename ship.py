@@ -46,7 +46,7 @@ class Ship:
         # 上颗子弹相对飞船的预设位置
         self.expected_last_bullet_distance = 0
         # 外星飞船舰队：
-        self.aliens = ai_game.aliens
+        self.aliens = ai_game.alien_captain.aliens
 
     # 将飞船重置在屏幕底部中央
     def center_ship(self):
