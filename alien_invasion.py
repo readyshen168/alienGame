@@ -48,7 +48,7 @@ class AlienInvasion:
         # 创建外星战队
         self.alien_captain.create_fleet()
         # 外星战队精灵组
-        self.aliens = self.alien_captain.aliens
+        # self.aliens = self.alien_captain.aliens
 
         # 创建飞船
         self.ship = Ship(self)
