@@ -7,6 +7,9 @@ class ScoreBoard:
 
     def __init__(self, ai_game):
         # 屏幕、game stats、字体、颜色
+        self.img_score_rect = None
+        self.img_score = None
+        self.str_score = None
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
 

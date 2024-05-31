@@ -46,7 +46,10 @@ class Ship:
         # 上颗子弹相对飞船的预设位置
         self.expected_last_bullet_distance = 0
         # 外星飞船舰队：
-        self.aliens = ai_game.aliens
+        self.alien_captain = ai_game.alien_captain
+        self.aliens = ai_game.alien_captain.aliens
+        print(self.aliens)
+        print(ai_game.alien_captain.aliens)
 
     # 将飞船重置在屏幕底部中央
     def center_ship(self):
@@ -89,10 +92,12 @@ class Ship:
             if bullet.rect.bottom < 0:
                 self.bullets.remove(bullet)
         # 在终端打出屏幕上剩余的子弹数量
-        print(len(self.bullets))
+        # print(len(self.bullets))
 
         # 删除被子弹击中的外星飞船，如果外星飞船集为空，则清空子弹、创建新的外星舰队、提升游戏难度 self.settings.increase_speed()
-        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        collisions = pygame.sprite.groupcollide(self.bullets, self.alien_captain.aliens, True, True)
+        # 存疑：此时为何self.aliens是空的？self.aliens在init中定义：self.aliens = self.alien_captain.aliens
+        # print(self.aliens)
         '''在分支test_score上测试对被击中外星飞船的统计'''
 
     def _fire_bullet(self):

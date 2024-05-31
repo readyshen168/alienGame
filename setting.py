@@ -6,6 +6,10 @@ import io
 class Settings:
     def __init__(self):
         # 初始化游戏设置
+        self.fleet_direction = None
+        self.alien_speed = None
+        self.bullet_speed = None
+        self.ship_speed = None
         self.bullets_capacity = 5
         self.screen_width = 1200
         self.screen_height = 800
@@ -23,26 +27,27 @@ class Settings:
         # 外星飞船数据：
         self.fleet_drop_speed = 10
 
-        #以什么倍率加快游戏的节奏speedup_scale
+        # 以什么倍率加快游戏的节奏speedup_scale
         self.speedup_scale = 1.1
 
         # 重置动态数据 initialize_dynamic_settings()
-        self.initialize_dynamic_settings()
-
+        self.initialize_difficulty_settings()
 
     """重置动态数据的方法"""
-    def initialize_dynamic_settings(self):
-        #把各项速度值、外星人移动方向在这里重置
+    # 重置游戏难度相关参数
+    def initialize_difficulty_settings(self):
+        # 把各项速度值、外星人移动方向在这里重置
         # 飞船速度
         self.ship_speed = 5
         # 子弹速度
         self.bullet_speed = 10.0
         # 外星人速度
-        self.alien_speed = 2.0
+        self.alien_speed = 20.0
         # fleet_direction为1表示向右移动，为-1表示向左移动
         self.fleet_direction = 1
 
     """提高各项速度的方法"""
+
     def increase_speed(self):
         self.ship_speed *= self.speedup_scale
         self.bullet_speed *= self.speedup_scale
