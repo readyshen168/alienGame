@@ -12,6 +12,7 @@ from score_board import ScoreBoard
 """加入计分模块"""
 """把外星人相关的代码都归入外星人类中处理，在分支test_alien上"""
 """大部分功能在分支test_alien上已实现，但子弹无法击落外星飞船"""
+"""已实现子弹击落外星飞船，还需合并计分模块"""
 
 
 class AlienInvasion:
