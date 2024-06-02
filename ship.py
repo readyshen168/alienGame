@@ -12,6 +12,8 @@ class Ship:
         self.settings = ai_game.settings
         self.imageFile = 'images/spaceShip.png'
 
+        self.ai_game = ai_game
+
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
 
@@ -48,8 +50,8 @@ class Ship:
         # 外星飞船舰队：
         self.alien_captain = ai_game.alien_captain
         self.aliens = ai_game.alien_captain.aliens
-        print(self.aliens)
-        print(ai_game.alien_captain.aliens)
+        # print(self.aliens)
+        # print(ai_game.alien_captain.aliens)
 
     # 将飞船重置在屏幕底部中央
     def center_ship(self):
@@ -99,6 +101,11 @@ class Ship:
         # 存疑：此时为何self.aliens是空的？self.aliens在init中定义：self.aliens = self.alien_captain.aliens
         # print(self.aliens)
         '''在分支test_score上测试对被击中外星飞船的统计'''
+        for bullet, aliens in collisions.items():
+            num_aliens_hit = len(aliens)
+            # 更新game_stats中的分数
+            self.ai_game.game_stats.score += num_aliens_hit
+            print(f"The bullet hit {num_aliens_hit} aliens.")
 
     def _fire_bullet(self):
 
