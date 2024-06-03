@@ -5,13 +5,17 @@ from setting import Settings
 class GameStats:
     def __init__(self):
         # 初始化统计信息settings、reset_stat()
+        self.high_sore = None
         self.score = None
         self.ships_left = None
         self.settings = Settings()
         self.reset_stat()
+        # 最高分
+        self.highest_score = 0
 
     # reset_stat() self.ships_left同步settings里的ship_limit值
     def reset_stat(self):
         """初始化一些统计信息"""
         self.ships_left = self.settings.ship_limit
         self.score = 0
+

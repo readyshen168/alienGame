@@ -7,6 +7,8 @@ class ScoreBoard:
 
     def __init__(self, ai_game):
         # 屏幕、game stats、字体、颜色
+        self.img_highest_score_rect = None
+        self.img_highest_score = None
         self.img_score_rect = None
         self.img_score = None
         self.str_score = None
@@ -29,9 +31,23 @@ class ScoreBoard:
         self.img_score_rect.right = self.screen_rect.right - 20
         self.img_score_rect.top = 20
 
+    def high_score_img(self):
+        if self.game_stats.score > self.game_stats.highest_score:
+            self.game_stats.highest_score = self.game_stats.score
+
+        str_highest_score = str(self.game_stats.highest_score)
+
+        self.img_highest_score = self.font.render(str_highest_score,True, self.score_color)
+        self.img_highest_score_rect = self.img_highest_score.get_rect()
+        self.img_highest_score_rect.centerx = self.screen_rect.centerx
+        self.img_highest_score_rect.bottom = self.img_score_rect.bottom
+
     # 把分数显示出来
     def score_show(self):
         # 更新最新的分数图片
         self.score_img()
+        # 显示最高分
+        self.high_score_img()
         # 显示分数
         self.screen.blit(self.img_score, self.img_score_rect)
+        self.screen.blit(self.img_highest_score, self.img_highest_score_rect)
