@@ -11,11 +11,16 @@ class GameStats:
         self.settings = Settings()
         self.reset_stat()
         # 最高分
-        self.highest_score = 0
+        self.highest_score = 16888
+        # 等级
+        self.level = None
+
+        self.reset_stat()
 
     # reset_stat() self.ships_left同步settings里的ship_limit值
     def reset_stat(self):
         """初始化一些统计信息"""
         self.ships_left = self.settings.ship_limit
         self.score = 0
+        self.level = 1
 

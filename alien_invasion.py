@@ -144,6 +144,8 @@ class AlienInvasion:
         # 若外星舰队被消灭，则生成新的外星舰队,且提升游戏难度(增加各项速度),本轮继续
         if not self.alien_captain.aliens:
             self._upgrade_difficulty()
+            # 提高等级
+            self.game_stats.level += 1
 
         # 若外星人和飞船发生碰撞，或者外星人舰队触底，且我方飞船还有数量，则本轮继续
         if ((pygame.sprite.spritecollideany(self.ship, self.alien_captain.aliens) or

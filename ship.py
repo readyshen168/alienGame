@@ -96,11 +96,13 @@ class Ship:
         # 在终端打出屏幕上剩余的子弹数量
         # print(len(self.bullets))
 
+        self._check_bullet_alien_collisions()
+
+    def _check_bullet_alien_collisions(self):
         # 删除被子弹击中的外星飞船，如果外星飞船集为空，则清空子弹、创建新的外星舰队、提升游戏难度 self.settings.increase_speed()
         collisions = pygame.sprite.groupcollide(self.bullets, self.alien_captain.aliens, True, True)
         # 存疑：此时为何self.aliens是空的？self.aliens在init中定义：self.aliens = self.alien_captain.aliens
         # print(self.aliens)
-        '''在分支test_score上测试对被击中外星飞船的统计'''
         for bullet, aliens in collisions.items():
             num_aliens_hit = len(aliens)
             # 更新game_stats中的分数
