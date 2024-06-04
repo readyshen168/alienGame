@@ -1,14 +1,16 @@
 import pygame
+from pygame.sprite import Sprite
+
 # from pygame.sprite import Sprite
 from setting import Settings
 from bullet import Bullet
 from empty_bullet import EmptyBullet
 
 
-class Ship:
+class Ship(Sprite):
 
     def __init__(self, ai_game):
-        # super().__init__()
+        super().__init__()
         self.settings = ai_game.settings
         self.imageFile = 'images/spaceShip.png'
 

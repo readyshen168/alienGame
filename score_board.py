@@ -1,4 +1,7 @@
 import pygame.font
+from pygame.sprite import Group
+
+from ship import Ship
 
 """记分板，分数来源于game_stats"""
 
@@ -16,6 +19,9 @@ class ScoreBoard:
         self.str_score = None
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
+
+        self.ai_game = ai_game
+        self.ships = Group()
 
         self.game_stats = ai_game.game_stats
 
@@ -52,8 +58,16 @@ class ScoreBoard:
         self.img_level = self.font.render(str_level, True, self.score_color)
 
         self.img_level_rect = self.img_level.get_rect()
-        self.img_level_rect.x = 20
-        self.img_level_rect.bottom = self.img_score_rect.bottom
+        self.img_level_rect.top = 10 + self.img_score_rect.bottom
+        self.img_level_rect.x = self.img_score_rect.x
+
+    # 剩余飞船的示意图：
+    def prep_ships(self):
+        for ship_num in range(self.game_stats.ships_left):
+            ship = Ship(self.ai_game)
+            ship.rect.x = 10 + ship.rect.width * ship_num
+            ship.rect.y = 10
+            self.ships.add(ship)
 
     # 把分数显示出来
     def score_show(self):
@@ -63,7 +77,12 @@ class ScoreBoard:
         self.high_score_img()
         # 更新等级
         self.level_img()
-        # 显示分数和等级
+        # 更新剩余飞船状态
+        self.prep_ships()
+
+        # 显示分数、等级和飞船数量
         self.screen.blit(self.img_score, self.img_score_rect)
         self.screen.blit(self.img_highest_score, self.img_highest_score_rect)
         self.screen.blit(self.img_level, self.img_level_rect)
+        # 在左上角画出剩余的飞船
+        self.ships.draw(self.screen)
